@@ -205,7 +205,7 @@ def buildTimeLapse(source):
             except:
                 pass 
 
-            command ="/usr/bin/ffmpeg -r 20 -i %s -c:v libx264 %s " % (inputFiles, outputFile)
+            command ="nice -n 15 ffmpeg -r 20 -i %s -c:v libx264 -preset ultrafast -crf 23  %s " % (inputFiles, outputFile)
 
             print(command)
             cmd = command.split()
