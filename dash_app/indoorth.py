@@ -98,10 +98,11 @@ def buildTemperatureGraph(data):
     fig = make_subplots(specs=[[{"secondary_y": True}]])
   
     colors = ['red', 'blue', 'green', 'violet', 'brown',  'black', 'magenta', 'pink']
+    room = ['Wohnzimmer','Kinderzimmer','Arbeitszimmer','','','','','']
     minTemp = 1000
     maxTemp = -1000
 
-    for i in range (1,9):
+    for i in range (1,4):
         Temperature = []
         Time = []
         
@@ -123,7 +124,7 @@ def buildTemperatureGraph(data):
         if (len(Time) > 0):
             # Add traces
             fig.add_trace(
-                go.Scatter(x=Time, y=Temperature, name="CHAN "+str(i),
+                go.Scatter(x=Time, y=Temperature, name=room[i-1],
                 line = dict(
                     color = (colors[i-1]),
                     width = 2,
@@ -163,8 +164,8 @@ def buildHumidityGraph(data):
     fig = make_subplots(specs=[[{"secondary_y": True}]])
   
     colors = ['red', 'blue', 'green', 'violet', 'brown',  'black', 'magenta', 'pink']
-
-    for i in range (1,9):
+    room = ['Wohnzimmer','Kinderzimmer','Arbeitszimmer','','','','',''] 
+    for i in range (1,4):
         Humidity = []
         Time = []
         
@@ -179,7 +180,7 @@ def buildHumidityGraph(data):
         if (len(Time) > 0):
             # Add traces
             fig.add_trace(
-                go.Scatter(x=Time, y=Humidity, name="CHAN "+str(i),
+                go.Scatter(x=Time, y=Humidity, name=room[i-1],
                 line = dict(
                     color = (colors[i-1]),
                     width = 2,

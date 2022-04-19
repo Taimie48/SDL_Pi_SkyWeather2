@@ -5,11 +5,13 @@ import dash_html_components as html
 
 from dash.dependencies import Input, Output
 import dash_html_components as html
+
 import dash_core_components as dcc
 import dash_daq as daq
 import plotly.express as px 
 import plotly.graph_objs as go
 from plotly.subplots import make_subplots
+import numpy as np
 
 import datetime
 import traceback
@@ -639,8 +641,12 @@ def buildOutdoorTemperature_Humidity_Graph_Figure():
 
     # Set x-axis title
     fig.update_xaxes(title_text="Time")
-   
-    minTemp = min(Temperature)*0.9
+    
+    if min(Temperature) < 0:
+    	minTemp = min(Temperature)*1.10
+    else:
+    	minTemp = min(Temperature)*0.90
+
     maxTemp = max(Temperature)*1.10
     # Set y-axes titles
     fig.update_yaxes(title_text="<b>Temperature ("+units+")</b>", range = (minTemp, maxTemp), secondary_y=False, side='left')
@@ -878,7 +884,7 @@ def buildSunlightUVIndexGraphFigure():
     fig.update_xaxes(title_text="Time")
     
     # Set y-axes titles
-    fig.update_yaxes(title_text="<b>Sunlight (Lux)</b>", secondary_y=False)
+    fig.update_yaxes(title_text="<b>Sunlight (Lux)</b>", secondary_y=False) #, type="log", dtick=np.log10(2))
     fig.update_yaxes(title_text="<b>UV Index </b>", secondary_y=True, range= (0,10))
     
     return fig
