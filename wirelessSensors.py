@@ -92,6 +92,11 @@ def processFT020T(sLine, lastFT020TTimeStamp, UpdateWR2 ):
 
         return ""
 
+    if var['id'] != 4: #check for bad id coming from sensor
+	    sys.stdout.write("wirelessSensors.py : bad FT020T ID")
+	    sys.stdout.write("JSON dump:" + json.dumps(var) + '\n')
+	    return "" #bail as well
+
     lastFT020TTimeStamp = var["time"]
 
     if (config.MQTT_Enable == True):
@@ -128,7 +133,7 @@ def processFT020T(sLine, lastFT020TTimeStamp, UpdateWR2 ):
             sys.stdout.write("error--->>> Temperature reading from FT020T\n")
             sys.stdout.write('This is the raw temperature: ' + str(wTemp) + '\n')
         # put in previous temperature 
-        wtemp = state.OutdoorTemperature 
+        wTemp = state.OutdoorTemperature 
     #print("wTemp=%s %s", (str(wTemp),nowStr() ));
     if (ucHumi > 100.0):
         # bad humidity
@@ -149,15 +154,19 @@ def processFT020T(sLine, lastFT020TTimeStamp, UpdateWR2 ):
     state.TotalRain  = round(var["cumulativerain"]/10.0,1)
 
     wLight = var["light"]
-    if (wLight >= 0x1fffa):
-        wLight = wLight | 0x7fff0000
+   # if (wLight >= 0x1fffa):
+   #     wLight = wLight | 0x7fff0000
 
     wUVI =var["uv"]
     if (wUVI >= 0xfa):
         wUVI = wUVI | 0x7f00
-
+    
     state.SunlightVisible =  wLight 
     state.SunlightUVIndex  = round(wUVI/10.0, 1 )
+
+    #set UV Index to zero during night time
+    if  (var["light"] == 0):
+    	state.SunlightUVIndex = 0
 
     if (var['batterylow'] == 0):
         state.BatteryOK = "OK"
