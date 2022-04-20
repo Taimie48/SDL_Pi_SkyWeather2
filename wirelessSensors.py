@@ -154,13 +154,8 @@ def processFT020T(sLine, lastFT020TTimeStamp, UpdateWR2 ):
     state.TotalRain  = round(var["cumulativerain"]/10.0,1)
 
     wLight = var["light"]
-<<<<<<< HEAD
-   # if (wLight >= 0x1fffa):
-   #     wLight = wLight | 0x7fff0000
-=======
     #if (wLight >= 0x1fffa):
     #    wLight = wLight | 0x7fff0000
->>>>>>> upstream/master
 
     wUVI =var["uv"]
     if (wUVI >= 0xfa):
