@@ -6,7 +6,13 @@ See full bug list and info on releases at:<BR>
 
 https://forum.switchdoc.com/thread/1452/skyweather2-software-releases
 
-April 15, 2022 - Version 027.4 - Fixed Light Overflow bug
+May 7, 2022 - Version 027.6 - add required updateWeb files <BR> 
+
+Run sudo pip3 install SafecastPy
+
+Run SkyWeather2.py from the command line to test<BR>
+sudo python3 SkyWeather2.py<BR>
+
 
 To update SkyWeather2 database, run the following command:<BR>
 <BR>
@@ -22,7 +28,8 @@ to install on SDL SD Card do this:
 sudo pip3 install python-aqi<BR>
 sudo pip3 install ffmpeg<BR>
 
-
+April 30, 2022 - Version 027.5 - RadSense Geiger Counter Support<BR> 
+April 15, 2022 - Version 027.4 - Fixed Light Overflow bug<BR>
 January 28, 2022 - Version 027.3 - WeatherRack2 signal strengths added in database<BR>
 January 27, 2022 - Version 027.2 - Fixed Multiple WeatherRack2 Use Case - Serial Number stored in database<BR>
 August 28, 2021 - Version 027.1 - MQTT typo fixes, split indoor T/H to seperate channels - thanks Zara<BR>
