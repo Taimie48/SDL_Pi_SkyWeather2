@@ -18,7 +18,7 @@ DELETE_FILES_OLDER_THAN_DAYS = 14
 #Start Time Lapse at this Time
 TIME_LAPSE_START_HOUR = 5
 # no of days to keep time lapses
-DELETE_TIME_LAPSES_OLDER_THAN_DAYS = 2
+DELETE_TIME_LAPSES_OLDER_THAN_DAYS = 14
 
 def check_mounted(mount_point):
     # Check if the specified mount point is mounted
