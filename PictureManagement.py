@@ -20,6 +20,10 @@ TIME_LAPSE_START_HOUR = 5
 # no of days to keep time lapses
 DELETE_TIME_LAPSES_OLDER_THAN_DAYS = 14
 
+def check_mounted(mount_point):
+    # Check if the specified mount point is mounted
+    result = subprocess.run(['mountpoint', '-q', mount_point])
+    return result.returncode == 0
 
 def cleanPictures(source):
 
@@ -70,6 +74,14 @@ def cleanTimeLapses(source):
         print(f"threshold = {time.ctime(threshold)} ")
         devices = os.listdir(dir_path)
         print ("devices=", devices)
+        current_time = datetime.datetime.now().time()
+        start_time = datetime.time(hour=7, minute=30)
+        end_time = datetime.time(hour=22)
+
+        if current_time < start_time or current_time > end_time:
+            print("Current time is outside the allowed range (7:30 - 22:00). Skipping file copying and removal.")
+            return
+        
         for device in devices:
             device_dir_path = dir_path+device+"/"
             files = os.listdir(device_dir_path)
@@ -81,6 +93,23 @@ def cleanTimeLapses(source):
                     if creation_time < threshold:
                         print(f"threshold = {time.ctime(threshold)} ")
                         print(f"{myFilePath} is created on {time.ctime(creation_time)} and will be deleted")
+                        # Check if the network share is mounted
+                        mount_point = "/mnt/nas-mount/nas-share"
+                        if not check_mounted(mount_point):
+                            print("Network share is not mounted at", mount_point)
+
+                        # Change current working directory to the mount point
+                            os.chdir(mount_point)
+
+                        # Wait for the network share to be mounted
+                            while not check_mounted(mount_point):
+                            print("Waiting for the network share to be mounted...")
+                            time.sleep(30)
+
+                    # Copy the file to the network share
+                    destination_path = mount_point + "/" + device + "/"
+                    os.makedirs(destination_path, exist_ok=True)
+                    shutil.copy2(myFilePath, destination_path)
                         os.remove(myFilePath)
     except:
         pass
