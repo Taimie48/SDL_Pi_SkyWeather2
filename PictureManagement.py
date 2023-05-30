@@ -103,8 +103,8 @@ def cleanTimeLapses(source):
 
                         # Wait for the network share to be mounted
                             while not check_mounted(mount_point):
-                            print("Waiting for the network share to be mounted...")
-                            time.sleep(30)
+                                print("Waiting for the network share to be mounted...")
+                                time.sleep(30)
 
                     # Copy the file to the network share
                     destination_path = mount_point + "/" + device + "/"
