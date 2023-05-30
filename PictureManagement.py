@@ -110,7 +110,7 @@ def cleanTimeLapses(source):
                     destination_path = mount_point + "/" + device + "/"
                     os.makedirs(destination_path, exist_ok=True)
                     shutil.copy2(myFilePath, destination_path)
-                        os.remove(myFilePath)
+                    os.remove(myFilePath)
     except:
         pass
 
