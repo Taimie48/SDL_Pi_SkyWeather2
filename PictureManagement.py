@@ -18,7 +18,7 @@ DELETE_FILES_OLDER_THAN_DAYS = 14
 #Start Time Lapse at this Time
 TIME_LAPSE_START_HOUR = 5
 # no of days to keep time lapses
-DELETE_TIME_LAPSES_OLDER_THAN_DAYS = 5
+DELETE_TIME_LAPSES_OLDER_THAN_DAYS = 2
 
 def check_mounted(mount_point):
     # Check if the specified mount point is mounted
@@ -97,13 +97,14 @@ def cleanTimeLapses(source):
                         mount_point = "/mnt/nas-mount/nas-share"
                         if not check_mounted(mount_point):
                             print("Network share is not mounted at", mount_point)
-
-                        # Change current working directory to the mount point
-                            os.chdir(mount_point)
+                        else
+                            print("Network share is mounted at", mount_point)
 
                         # Wait for the network share to be mounted
                             while not check_mounted(mount_point):
                                 print("Waiting for the network share to be mounted...")
+                                # Change current working directory to the mount point
+                                os.chdir(mount_point)
                                 time.sleep(30)
 
                     # Copy the file to the network share
