@@ -97,7 +97,7 @@ def cleanTimeLapses(source):
                         mount_point = "/mnt/nas-mount/nas-share"
                         if not check_mounted(mount_point):
                             print("Network share is not mounted at", mount_point)
-                        else
+                        else:
                             print("Network share is mounted at", mount_point)
 
                         # Wait for the network share to be mounted
