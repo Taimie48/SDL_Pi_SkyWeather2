@@ -75,13 +75,7 @@ def cleanTimeLapses(source):
         devices = os.listdir(dir_path)
         print ("devices=", devices)
         current_time = datetime.datetime.now().time()
-        start_time = datetime.time(hour=7, minute=30)
-        end_time = datetime.time(hour=22)
-
-        if current_time < start_time or current_time > end_time:
-            print("Current time is outside the allowed range (7:30 - 22:00). Skipping file copying and removal.")
-            return
-        
+           
         for device in devices:
             device_dir_path = dir_path+device+"/"
             files = os.listdir(device_dir_path)
